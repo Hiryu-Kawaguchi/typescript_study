@@ -4,7 +4,7 @@ module.exports = {
     // 指定できる値としては、ファイル名の文字列や、それを並べた配列やオブジェクト
     // 下記はオブジェクトとして指定した例 
     entry: {
-        bundle: './src/app.ts'
+        bundle: './src/index.tsx'
     },  
     output: {
         // モジュールバンドルを行った結果を出力する場所やファイル名の指定
@@ -16,7 +16,7 @@ module.exports = {
     // 例えば「import Foo from './foo'」という記述に対して"foo.ts"という名前のファイルをモジュールとして探す
     // デフォルトは['.js', '.json']
     resolve: {
-        extensions:['.ts','.js']
+        extensions:['.ts','.js','.tsx','.json']
     },
     devServer: {
         // webpack-dev-serverの公開フォルダ
@@ -27,7 +27,7 @@ module.exports = {
         rules: [
             {
                 // 拡張子が.tsで終わるファイルに対して、TypeScriptコンパイラを適用する
-                test:/\.ts$/,loader:'ts-loader'
+                test:/\.tsx$/,loader:'ts-loader'
             }
         ]
     }
