@@ -13,10 +13,10 @@ export class QuestionList extends React.Component<QuestionListProps> {
         if(this.props.value == []){
             return null;
         }
-        const ItemList = this.props.value.map((item) => <li>id: {item.id} 質問文: {item.title}</li>);
+        const ItemList = this.props.value.map((item) => <li key={item.id}>id: {item.id} 質問文: {item.title}</li>);
         return (
             <div>
-            {ItemList}
+            { ItemList }
             </div>
         );
     }
