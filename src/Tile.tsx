@@ -2,30 +2,32 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 
 import {Button} from './Button';
+import {QuestionList} from './QuestionList';
+import {Question} from './Question';
 
 export interface TileProps {
     hello: string;
 }
 export interface TileState {
     inputValue: string;
-    outputValue: string;
-    bom: number;
+    outputValue: Question[];
+    id: number;
+}
+export interface Question{
+    id: number;
+    title: string;
+    is_true: boolean;
 }
 export class Tile extends React.Component<TileProps, TileState> {
     constructor(props: TileProps) {
         super(props);
         this.state = {
         inputValue: '',
-        outputValue: '',
-        bom: 0,
+        outputValue: [],
+        id: 1,
         }
         this.handleChange = this.handleChange.bind(this);
         this.handleClick = this.handleClick.bind(this);
-    }
-    componentWillMount(): void{
-        this.setState({
-            bom: 10,
-        });
     }
     handleChange(e: any): void {
         this.setState({
@@ -33,17 +35,25 @@ export class Tile extends React.Component<TileProps, TileState> {
         });
     }
     handleClick(): void {
+        let tmp = this.state.outputValue;
+        let nextId = this.state.id + 1;
+        let q = new Question(this.state.id, this.state.inputValue);
+        tmp.push(q)
         this.setState({
         inputValue: '',
-        outputValue: this.state.inputValue,
+        outputValue: tmp,
+        id: nextId,
         });
     }
     render() {
         return (
         <div>
+            <h1>アンケート</h1>
+            <h2>作成</h2>
             <Input value={this.state.inputValue} handleChange={this.handleChange} />
             <Button handleClick={this.handleClick} />
-            <Output hello={this.state.bom} value={this.state.outputValue} />
+            <h2>一覧</h2>
+            <QuestionList value={this.state.outputValue} />
         </div>
         );
     }
@@ -52,20 +62,9 @@ export class Tile extends React.Component<TileProps, TileState> {
 interface InputProps {
     value: string;
     handleChange(e: any): void;
-  }
-  const Input: React.StatelessComponent<InputProps> = (props) => {
+}
+const Input: React.StatelessComponent<InputProps> = (props) => {
     return (
-      <input type="text" placeholder="Input Name" value={props.value} onChange={props.handleChange} />
+        <input type="text" placeholder="質問文" value={props.value} onChange={props.handleChange} />
     );
-  }
-  /* テキストを出力する「Outputコンポーネント」 */
-  interface OutputProps {
-    hello: number;
-    value: string;
-  }
-  const Output: React.StatelessComponent<OutputProps> = (props) => {
-    const value = (props.value !== '') ? <h1>{props.hello}回 {props.value} !</h1> : '';
-    return (
-      <div>{value}</div>
-    );
-  }
+}
