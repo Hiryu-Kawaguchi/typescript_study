@@ -1,8 +1,13 @@
 const path = require('path');
 module.exports = {
+    // ReactとReactDOMをコンパイルに含まないようにする
+    // externals: {
+    //     "react": "React",
+    //     "react-dom": "ReactDOM"
+    // },
     // モジュールバンドルを行う起点となるファイルの指定
     // 指定できる値としては、ファイル名の文字列や、それを並べた配列やオブジェクト
-    // 下記はオブジェクトとして指定した例 
+    // 下記はオブジェクトとして指定した例
     entry: {
         bundle: './src/index.tsx'
     },  
